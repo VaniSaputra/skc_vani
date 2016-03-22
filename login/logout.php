@@ -1,0 +1,1 @@
+Logout <a href="login.php">Go to Login</a>

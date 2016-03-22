@@ -1,0 +1,80 @@
+#Note To this Solocup
+
+KEBUTUHAN CLIENT
+................
+> Download chrome terbaru untuk server
+
+DB Explanation Backup
+................
+[1] skc_solocup.sql > All DB termasuk kelas yang dipecah2 - Kelas_all, kelas_jk, Kelas_jb
+
+Laporan Need
+............
+Simulasi data sebelum data asli > XLS > CSV (; -> ,) > SQL with sqlizer.io (online)
+
+
+3/3/16 Rabu
+............
+> Print dengan perintah biasa ctrl+p
+> class to hide element when print : .noprint
+> Print semua kolom
+> Database drowing_simple ada di MySQL
+> Error JsDataTable th/4
+> Saat Search Tabel Rusak
+> Logonya masih mobil
+# Form Layout sudah ada di bangkit
+# Pop Up Table Layout ada di Bangkit
+
+9/3/16 Rabu
+-----------
+# Using Bootstrap 3.3.0 Default
+# Encrypt URL Using AES
+# Navbar Added
+# Database Updated > Add Column on peserta > +kelas_all (Filled with joined all Kelas to Easier Grouping when Drowing)
+# ! Learn MPDF Tutorial 
+# ! Using Bootsnip to Create Form 
+# SQL Syntax (View Count perKelas) SELECT COUNT(*), Kontingen FROM drowing_simple GROUP BY Kelas
+# Data_overall , It's Only possible when included file data_overall outside, inside = nothing
+# It's Possible to use: SELECT CONCAT_WS(' ',Kontingen, Perguruan) AS Gabung, COUNT(*) FROM drowing_simple GROUP BY Gabung
+	SELECT Another columns too, to make it can dropdown-able information.
+	SELECT Nama, Kontingen WHERE Kelas_a=, Kelas_b=, Kelas_c=
+
+12/3/16 Sabtu
+-----------
+# Data Perkelas dan Perkontingen READY BUT Non-Searchable	
+
+13/3/16 Minggu
+------------
+# Login dihalaman awal
+# ! Drowing : Jumlah peserta dibagi 2, yang terbanyak dibawah
+# ! Buat Tabel Drowing JPG
+# ! Format Surat Balasan
+# ! Halaman Admin Kelas
+# Change DB - Jenis Kelamin & Kelas_All Concept (JK : Putra(Pa) ^ Putri(Pi))
+
+14/3/16 Minggu
+------------
+# ALTER TABLE drowing_simple MODIFY COLUMN ID INT auto_increment // Bisa buat auto_increment dari table terisi
+# Bug dihalaman depan > lib/config tanpa ../
+# JS Datatable autoload onChange
+
+15/3/16 Senin
+-------------
+# File Edited
+	* assets/js/dataTables.bootstrap.min.js
+	* index.php
+	* modul/view/overall.php
+# overall > include_once issue, autocomplet READY
+
+19/3/16 Sabtu
+-------------
+# AutoComplete array READY
+# ! Peserta Edit, Add dll > Jenis Kelamin UNSET
+# Database UPDATE > Ganti semua Coloumn di DB, Cek dengan delete drowing_simple
+# Kelas Edit + Delete READY
+# ! Kasih footer copyright !!
+# Auto Capital when insert Class ?
+# ! Drowing Simulator
+# ! BUG Data Perkelas dan Perkontingen READY BUT Non-Searchable
+	> GROUP BY and COUNT(*) Issue
+# Added Pool to Col DROWING
