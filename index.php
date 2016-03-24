@@ -1,3 +1,12 @@
+<?php
+session_start();
+error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED );
+
+// koneksi
+$koneksi=mysql_connect('localhost','root',''); 
+$db = mysql_select_db("skc_solocup"); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,7 +24,33 @@
     <link href="assets/css/jquery.dataTables.css" rel="stylesheet">
     <link href="assets/css/dataTables.bootstrap.css" rel="stylesheet">
     <link href="assets/css/twitter-typeahead.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <style>
+      <?php 
+      if ( $_SESSION['user']=="admin") {
+        echo "
+           .pr-admin, .pr-drower, .pr-user
+            {
+              visibility: visible 
+            }";
+      }elseif ($_SESSION['user']=="drower") {
+        echo "
+            .pr-admin, .pr-user{
+              visibility: hidden}
 
+            .pr-drower{
+              visibility: visible
+            } ";
+      }else{
+        echo
+        ".pr-admin, .pr-drower{
+          visibility: hidden}
+          .pr-user{
+            visibility: visible} ";
+        }
+       ?>
+      }
+    </style>
 
   </head>
   <body>
@@ -32,10 +67,14 @@
 
     <!-- BS-3 JS -->
     <script src="assets/js/bootstrap.min.js"></script>
+    
+    <!-- BS-3 Datepicker -->
+    <script src="assets/js/moment-with-locales.js"></script>
+    <script src="assets/js/bootstrap-datetimepicker.js"></script>
 
 
-    <?php     
-      error_reporting(E_ALL ^ E_NOTICE);
+    <?php
+      error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
       // Encrypt Module || AES 
       include "modul/enkripsi/function.php";
 
@@ -47,13 +86,11 @@
       $link_count_peserta   = paramEncrypt("uri=view/count_peserta"); // Jumlah Peserta Per Kelas
       $link_count_kontingen = paramEncrypt("uri=view/count_perkontingen"); // Jumlah Peserta Per Kontingen
 
+      // Modul kontingen
+      $link_manage_kontingen   = paramEncrypt("uri=kontingen/kontingen_view"); // Jumlah Peserta Per Kontingen    
+
       // Modul Kelas
       $link_manage_kelas    = paramEncrypt("uri=kelas/kelas_view"); // Jumlah Peserta Per Kontingen
-      $link_kelas_add       = paramEncrypt("uri=kelas/kelas_add");  // Tambah Kelas
-
-      // Modul kontingen
-      $link_manage_kontingen   = paramEncrypt("uri=kontingen/kontingen_view"); // Jumlah Peserta Per Kontingen
-      $link_kontingen_add       = paramEncrypt("uri=kontingen/kontingen_add");  // Tambah kontingen
 
       // Modul Drowing
       $link_drowing         = paramEncrypt("uri=drowing/drowing_kelas"); // Tambah Data Peserta

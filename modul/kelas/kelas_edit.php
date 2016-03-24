@@ -10,7 +10,7 @@ $col	= "id_kelas";
 $val	= $id;
 $q 	    = $kelas->fetch_single_row($table,$col,$val);
 
-$isi	= $q->isi;
+$isi	= $q->isi_kelas;
 
 ?>
 
@@ -45,7 +45,7 @@ $isi	= $q->isi;
 if(isset($_POST[submit])){
 	$table_up	= "kelas_all";
 	$data_up	= array(
-                        'isi'          => $_POST[isi]
+                        'isi_kelas'          => $_POST[isi]
                          );
 	$prim_col	= "id_kelas";
 	// $id didefinisikan diatas;

@@ -11,7 +11,6 @@ $val	= $id;
 $q 	    = $peserta->fetch_single_row($table,$col,$val);
 
   $Nama			      = $q->nama;
-  $Kontingen		  = $q->kontingen;
   $Tanggal_Lahir	= $q->tgl_lahir;
   $Waktu_Input    = $q->waktu_input;
   $Perguruan		  = $q->perguruan;
@@ -23,15 +22,28 @@ $q 	    = $peserta->fetch_single_row($table,$col,$val);
   $kelas_id         = $db->fetch_all("kelas_all");
   foreach($kelas_id as $val){
     // Buat Array dengan id=isi kelas dan value id kelas, untuk konversi saat POST
-    $kelas_id_conv[$val->isi] = $val->id_kelas;
+    $kelas_id_conv[$val->isi_kelas] = $val->id_kelas;
 
     // Buat Array dengan id=idkelas kelas dan value isi, untuk konversi saat POST
-    $kelas_val_conv[$val->id_kelas] = $val->isi;
+    $kelas_val_conv[$val->id_kelas] = $val->isi_kelas;
   }
   // -- END KONVERSI
 
-  //Tampilkan kelas
+  // Konversi id_kelas > isi dansebaliknya
+  $kont_id_conv    = array();
+  $kont_id         = $db->fetch_all("kontingen_all");
+  foreach($kont_id as $val){
+    // Buat Array dengan id=isi kelas dan value id kelas, untuk konversi saat POST
+    $kont_id_conv[$val->isi_kontingen] = $val->id_kontingen;
+
+    // Buat Array dengan id=idkelas kelas dan value isi, untuk konversi saat POST
+    $kont_val_conv[$val->id_kontingen] = $val->isi_kontingen;
+  }
+  // -- END KONVERSI
+
+  //Tampilkan kelas dan Kontingen
   $Kelas          = $kelas_val_conv[$q->id_kelas];
+  $Kontingen      = $kont_val_conv[$q->id_kontingen];
 ?>
 
 <div class="container">
@@ -52,7 +64,7 @@ $q 	    = $peserta->fetch_single_row($table,$col,$val);
 
   <!-- Text input-->
   <div class="form-group">
-    <label class="col-md-4 control-label" for="kontingen_pilih">Kontingen</label>  
+    <label class="col-md-4 control-label" for="kontingen">Kontingen</label>  
     <div class="col-md-6">
     <input id="kontingen_pilih" name="kontingen" type="text" placeholder="Data Tersimpan: <?php echo $Kontingen; ?>" class="form-control input-md" required="" value="<?php echo $Kontingen; ?>">
       
@@ -72,9 +84,14 @@ $q 	    = $peserta->fetch_single_row($table,$col,$val);
   <div class="form-group">
     <label class="col-md-4 control-label" for="tgl_lahir">Tanggal Lahir</label>  
     <div class="col-md-6">
-    <input id="tgl_lahir" name="tgl_lahir" type="text" placeholder="Data Tersimpan: <?php echo $Tanggal_Lahir; ?>" class="form-control input-md" required="" value="<?php echo $Tanggal_Lahir; ?>">
-    <span class="help-block">Isi sesuai format</span>  
-    </div>
+      <div class='input-group date' id='datetimepicker10'>
+          <input name="tgl_lahir" type='text' class="form-control" placeholder="Data Tersimpan: <?php echo $Tanggal_Lahir; ?>" value="<?php echo $Tanggal_Lahir; ?>" />
+          <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar">
+              </span>
+          </span>
+      </div>               
+    </div>         
   </div>
 
   <!-- Appended Input-->
@@ -147,18 +164,19 @@ $q 	    = $peserta->fetch_single_row($table,$col,$val);
   </div>        
 </form>  
 
-<!-- autocomplete kelas -->
+<!-- autocomplete kelas & kontingen-->
 <script type="text/javascript">
  // Kelas Data Autocomplete
  var kelas_data = [];
  var kontingen_data = [];
 
+//Kelas
  <?php 
   $kelas_sel  = new Database;
   $kelas_q    = "SELECT * FROM kelas_all";
   $exec       = $kelas_sel->custom_query($kelas_q);
   foreach ($exec as $kelas_nama) {
-    $kelas_n = $kelas_nama->isi;
+    $kelas_n = $kelas_nama->isi_kelas;
 ?>
   kelas_data.push('<?php echo $kelas_n; ?>');
 <?php
@@ -170,24 +188,29 @@ $q 	    = $peserta->fetch_single_row($table,$col,$val);
     local: kelas_data
   });
 
-  // kontingen Data Autocomplete
-    <?php 
-      include_once "lib/config.php";
+
+//Kontingen
+ <?php       
       $kontingen_sel  = new Database;
       $kontingen_q    = "SELECT * FROM kontingen_all";
       $exec       = $kontingen_sel->custom_query($kontingen_q);
       foreach ($exec as $kontingen_nama) {
-        $kontingen_n = $kontingen_nama->isi;
+        $kontingen_n = $kontingen_nama->isi_kontingen;
     ?>
       kontingen_data.push('<?php echo $kontingen_n; ?>');
     <?php
-        // echo $kelas_n;
       } // close foreach($exec)
     ?>
 
      $('#kontingen_pilih').typeahead({        
         local: kontingen_data
-      });
+      });     
+
+  // Datepicker BS 3
+  $('#datetimepicker10').datetimepicker({
+    viewMode: 'days',
+    format: 'YYYY-MM-DD'
+  });  
 
 </script>
 
@@ -197,7 +220,7 @@ if(isset($_POST[submit])){
 	$table_up	= "peserta";
 	$data_up	= array(
                         'nama'          => $_POST[nama],
-                        'kontingen'     => $_POST[kontingen],                        
+                        'id_kontingen'  => $kont_id_conv[$_POST[kontingen]],                        
                         'berat_badan'   => $_POST[berat], 
                         'tgl_lahir'     => $_POST[tgl_lahir],
                         'perguruan'     => $_POST[perguruan],
@@ -218,4 +241,3 @@ if(isset($_POST[submit])){
 }
 
 ?>
-

@@ -1,0 +1,71 @@
+/*
+
+Darko Bunic
+http://www.redips.net/
+Mar, 2011.
+
+*/
+
+body {
+	font-family: arial;
+	margin: 0px; /* for IE */
+}
+
+.hide-this {
+	visibility: hidden;
+}
+
+.disp-input {
+	display: inline-block;
+	padding: 2px;
+	width: 250px;
+}
+
+/* drag area */
+#redips-drag {
+	margin-top: 20px;
+}
+
+
+/* drag objects (DIV elements inside table cells) */
+.redips-drag {
+	cursor: move;
+	margin-left: 10px;
+	z-index: 10;
+	padding: 2px;
+	background-color: white;
+	display: inline-block;
+	font-size: 12pt; /* needed for cloned object */
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	/* without width, IE6/7 will not apply filter/opacity to the element ?! */
+}
+
+/* styles for left table */
+#table1 {
+	background-color: #eee;
+	border-collapse: collapse;
+	margin-top: 7px;
+	display: inline-block;
+	margin-right: 20px;
+}
+	#table1 span {
+		font-size: 12pt;
+		padding-left: 10px;
+	}
+	/* border for table1 */
+	#table1 td {
+		border: 1px solid #DDC5B5;
+		padding: 5px;
+	}
+
+/* green objects */
+.green {
+	border: 2px solid #499B33;
+}
+
+/* orange objects */
+.white {
+	border: 1px solid #FFF;
+}
+

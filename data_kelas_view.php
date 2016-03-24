@@ -4,7 +4,7 @@ include "modul/enkripsi/function.php";
 //kolom apa saja yang akan ditampilkan
 $columns = array(
 	'id_kelas',
-	'isi'
+	'isi_kelas'
 	);
 
 //lakukan query data dari 3 table dengan inner join
@@ -19,7 +19,7 @@ $columns = array(
 	$ResultData = array();
 	//masukan data ke array sesuai kolom table
 	$ResultData[] = $value->id_kelas;
-	$ResultData[] = $value->isi;
+	$ResultData[] = $value->isi_kelas;
 
 	//bisa juga pake logic misal jika value tertentu maka outputnya
 

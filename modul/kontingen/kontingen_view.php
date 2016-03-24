@@ -2,7 +2,7 @@
 <div class="container">
     <!-- Heading Row -->
     <div class="row row-centered">
-        <h1> <span class="label label-danger">Manage kontingen</span> <a href="#" data-toggle="modal" data-target=".modal-kontingen-add" title="Tambah Data" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>  </a><br> <small>Solocup 2016 Database</small> <br></h1>
+        <h1> <span class="label label-danger">Manage Kontingen</span> <a href="#" data-toggle="modal" data-target=".modal-kontingen-add" title="Tambah Data" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>  </a><br> <small>Solocup 2016 Database</small> <br></h1>
         <div class="col-md-12">
             <table id="kontingen_view" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
@@ -60,7 +60,7 @@
     $kontingen    = new Database;
     $table    = 'kontingen_all';
     $kontingen_isi  = array(
-              'isi'=>$_POST[isi_kontingen]
+              'isi_kontingen'=>$_POST[isi_kontingen]
                );
 
     $exec     = $kontingen->insert($table,$kontingen_isi);

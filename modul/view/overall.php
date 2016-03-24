@@ -56,9 +56,14 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="tgl_lahir">Tanggal Lahir</label>  
             <div class="col-md-6">
-            <input id="tgl_lahir" name="tgl_lahir" type="text" placeholder="1995-09-24 (Contoh Untuk Format 24 September 1995)" class="form-control input-md" required="">
-            <span class="help-block">Isi sesuai format</span>  
-            </div>
+              <div class='input-group date' id='datetimepicker10'>
+                  <input name="tgl_lahir" type='text' class="form-control" placeholder="1995-09-24 (Contoh Untuk Format 24 September 1995)" />
+                  <span class="input-group-addon">
+                      <span class="glyphicon glyphicon-calendar">
+                      </span>
+                  </span>
+              </div>               
+            </div>         
           </div>
 
           <!-- Appended Input-->
@@ -66,7 +71,7 @@
             <label class="col-md-4 control-label" for="berat">Berat Badan</label>
             <div class="col-md-2">
               <div class="input-group">
-                <input id="berat" name="berat" class="form-control" placeholder="0" type="text" required="">
+                <input id="berat" name="berat" class="form-control" placeholder="0" value="0" type="text" required="">
                 <span class="input-group-addon">Kg</span>
               </div>
               
@@ -120,18 +125,23 @@
 </div>
 
 <?php
-error_reporting(E_ALL ^ E_NOTICE);
   // Input data Peserta
   include "lib/config.php";
 
   if($_POST[submit])    
   {
 
-    // Buat Array dengan id=isi kelas dan value id kelas, untuk konversi saat POST
+    // Buat Array dengan id=isi kelas/kontingen dan value id kelas/kontingen, untuk konversi saat POST
     $kelas_id_conv    = array();
+    $kont_id_conv    = array();
+
     $kelas_id         = $db->fetch_all("kelas_all");
+    $kont_id          = $db->fetch_all("kontingen_all");
     foreach($kelas_id as $val){
-      $kelas_id_conv[$val->isi] = $val->id_kelas;
+      $kelas_id_conv[$val->isi_kelas] = $val->id_kelas;
+    }
+    foreach ($kont_id as $val) {
+      $kont_id_conv[$val->isi_kontingen] = $val->id_kontingen;     
     }
 
     // Proses Input data Peserta
@@ -139,7 +149,7 @@ error_reporting(E_ALL ^ E_NOTICE);
     $table      = 'peserta';
     $val_psrta  = array(
                         'nama'          => $_POST[nama],
-                        'kontingen'     => $_POST[kontingen],                        
+                        'id_kontingen'     => $kont_id_conv[$_POST[kontingen]],                        
                         'berat_badan'   => $_POST[berat], 
                         'tgl_lahir'     => $_POST[tgl_lahir],
                         'waktu_input'   => date('Y-m-d h:m:s'),
@@ -164,7 +174,7 @@ error_reporting(E_ALL ^ E_NOTICE);
       $kelas_q    = "SELECT * FROM kelas_all";
       $exec       = $kelas_sel->custom_query($kelas_q);
       foreach ($exec as $kelas_nama) {
-        $kelas_n = $kelas_nama->isi;
+        $kelas_n = $kelas_nama->isi_kelas;
     ?>
       kelas_data.push('<?php echo $kelas_n; ?>');
     <?php
@@ -183,7 +193,7 @@ error_reporting(E_ALL ^ E_NOTICE);
       $kontingen_q    = "SELECT * FROM kontingen_all";
       $exec       = $kontingen_sel->custom_query($kontingen_q);
       foreach ($exec as $kontingen_nama) {
-        $kontingen_n = $kontingen_nama->isi;
+        $kontingen_n = $kontingen_nama->isi_kontingen;
     ?>
       kontingen_data.push('<?php echo $kontingen_n; ?>');
     <?php
@@ -193,7 +203,13 @@ error_reporting(E_ALL ^ E_NOTICE);
 
      $('#kontingen_pilih').typeahead({        
         local: kontingen_data
-      });
+      });     
+
+      // Datepicker BS 3
+      $('#datetimepicker10').datetimepicker({
+        viewMode: 'days',
+        format: 'YYYY-MM-DD'
+      });     
 
      // Data table
      $("#overall").dataTable({

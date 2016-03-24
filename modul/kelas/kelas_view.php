@@ -60,7 +60,7 @@
     $kelas    = new Database;
     $table    = 'kelas_all';
     $kelas_isi  = array(
-              'isi'=>$_POST[isi_kelas]
+              'isi_kelas'=>$_POST[isi_kelas]
                );
 
     $exec     = $kelas->insert($table,$kelas_isi);

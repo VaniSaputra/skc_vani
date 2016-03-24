@@ -1,3 +1,4 @@
+
 #Note To this Solocup
 
 KEBUTUHAN CLIENT
@@ -8,10 +9,65 @@ DB Explanation Backup
 ................
 [1] skc_solocup.sql > All DB termasuk kelas yang dipecah2 - Kelas_all, kelas_jk, Kelas_jb
 
+Github
+.......
+> https://github.com/vanisaputra
+> https://github.com/axquired24
+> https://github.com/tanyakenapa10
+
 Laporan Need
 ............
 Simulasi data sebelum data asli > XLS > CSV (; -> ,) > SQL with sqlizer.io (online)
+Plugin used
+	> Bootstrap
+	> JS Data-Table Server Side - Wildantea
+	>  
 
+
+21 Maret 2015 [Konsul Pei Paul]
+.......tanyaan.........
+Bagan ada tempat skor ?
+Tampilan Tambah Data ? ?
+Kontingen Sragen n Min-Ngijo Sragen
+Pemkot Sragen, Lemkari Sragen, FORKI Sragen
+......tambahan.........
+[BUGS] W7 & W10 - Gamau Ke load;
+View Perkontingen > JUmlah kata perorangan dan beregu, Kumite	(Bangkit)
+Tambahin AutoComplete Kontingen (ID Kontingen) Manage Kontingen	(Vani) - OK
+	> Tampilan di depan join ID_Kontingen
+	> Update Table Belum kontingen(id_kontingen, isi)			- NOT
+Tambahin Datepicker												(Ax) - OK
+Berat Badan Default "-"; 										(Ax) - OK
+ADMIN PRIVILEDGE (admin, user, drowing) - 						(Vani)
+	User cuma bisa lihat - input (input kontingen juga bisa, tapi edit sama hapus cuma server)
+	Admin Full control
+	Drowing sama kayak user + cuma bisa drowing
+	if($login_type == admin)
+	{
+		.css-opsi, .css-drowing
+		{
+			visibility : visible;
+		}
+	}
+	elseif($login_type == drower)
+	{
+		.css-opsi
+		{
+			visibility : hidden;
+		}
+		.css-drowing
+		{
+			visibility : visible;
+		}
+	}
+	else //$login_type = user, dsb
+	{
+		.css-opsi, .css-drowing
+		{
+			visibility : visible;
+		}	
+	}
+Drowing Semi Manual + Excel 									(Ax)
 
 3/3/16 Rabu
 ............
@@ -78,3 +134,20 @@ Simulasi data sebelum data asli > XLS > CSV (; -> ,) > SQL with sqlizer.io (onli
 # ! BUG Data Perkelas dan Perkontingen READY BUT Non-Searchable
 	> GROUP BY and COUNT(*) Issue
 # Added Pool to Col DROWING
+
+22/3/16 Selasa
+--------------
+# Database Edit
+	> Add Column : type in admin
+	> Add Table admin_type untuk foreign_key 
+	> Add Table  : kontingen_all
+	> 
+# Drowing > Switch
+	> Css Table inline-block
+
+24/3/16 Kamis
+-------------
+DATABASE EDIT
+	> Edit Column : peserta.kontingen -> peserta.id_kontingen (Cek semua input dan output);
+	> Add Column : kontingen_all (id_kelas, isi_kelas)
+	> Edit Column : kelas_all (id_kelas, isi_kelas)

@@ -5,18 +5,21 @@ include "modul/enkripsi/function.php";
 
 $columns = array(
 	'id_peserta',
-	'kontingen',
+	'isi_kontingen', //kontingen
 	'nama',
 	'tgl_lahir',
 	'berat_badan',
 	'perguruan',
-	'isi',
+	'isi_kelas', // kelas
 	);
 
 //lakukan query data dari 3 table dengan inner join
-	$query 		= $datatable->get_custom("SELECT peserta.*, kelas_all.* 
-											FROM kelas_all INNER JOIN peserta
-											ON kelas_all.id_kelas=peserta.id_kelas",$columns);
+	$query 		= $datatable->get_custom("SELECT peserta.*, kelas_all.*, kontingen_all.* 
+											FROM peserta INNER JOIN kelas_all
+											ON kelas_all.id_kelas=peserta.id_kelas
+											INNER JOIN kontingen_all
+											ON kontingen_all.id_kontingen=peserta.id_kontingen
+											",$columns);
 
 	//buat inisialisasi array data
 	$data = array();
@@ -26,12 +29,12 @@ $columns = array(
 		$ResultData = array();
 		//masukan data ke array sesuai kolom table
 		$ResultData[] = $value->id_peserta;
-		$ResultData[] = $value->kontingen;
+		$ResultData[] = $value->isi_kontingen; //kontingen
 		$ResultData[] = $value->nama;
 		$ResultData[] = $value->tgl_lahir;
 		$ResultData[] = $value->berat_badan." Kg";
 		$ResultData[] = $value->perguruan;							
-		$ResultData[] = $value->isi;
+		$ResultData[] = $value->isi_kelas; //kelas
 
 		//bisa juga pake logic misal jika value tertentu maka outputnya
 
@@ -46,9 +49,9 @@ $columns = array(
 						);
 		$ResultData[] = "
 			<span class='hide-print'>
-			<a title='Ubah Data' href='./?".$crud_uri[edit]."' class='link'><span class='glyphicon glyphicon-pencil btn btn-xs btn-default'></span></a>
-			<a title='Hapus Data' onClick='".$crud_uri[del_msg]."' href='./?".$crud_uri[delete]."' class='link'><span class='glyphicon glyphicon-trash btn btn-xs btn-danger'></span></a>
-			<a title='Detail Data' href='url_edit/".$value->id_peserta." class='link'><span class='glyphicon glyphicon-list-alt btn btn-xs btn-success'></span></a>
+			<a title='Ubah Data' href='./?".$crud_uri[edit]."' class='link pr-admin'><span class='glyphicon glyphicon-pencil btn btn-xs btn-default'></span></a>
+			<a title='Hapus Data' onClick='".$crud_uri[del_msg]."' href='./?".$crud_uri[delete]."' class='link pr-admin'><span class='glyphicon glyphicon-trash btn btn-xs btn-danger'></span></a>
+			<a title='Detail Data' href='url_edit/".$value->id_peserta."' class='link pr-admin'><span class='glyphicon glyphicon-list-alt btn btn-xs btn-success'></span></a>
 			</span>
 		";
 

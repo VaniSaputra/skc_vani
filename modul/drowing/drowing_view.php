@@ -81,7 +81,7 @@
 						// echo $list[nama]." - ".$list[kontingen]."<br><br>";
 			?>		
 			<tr>
-				<td><?php echo $no_tanding; ?></td>
+				<td><?php //echo $no_tanding; ?></td>
 				<td><?php echo $list[nama]; ?></td>
 				<td><?php echo $list[kontingen]; ?></td>
 				<td> <input type="text" name="pool_no"></td>

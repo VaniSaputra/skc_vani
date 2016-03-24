@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
 ini_set( "display_errors", true );
 define( "DB_DSN", "mysql:host=localhost;dbname=skc_solocup" );
 define( "DB_USERNAME", "root" );

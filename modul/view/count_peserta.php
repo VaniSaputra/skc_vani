@@ -1,3 +1,8 @@
+<style>
+  #contoh3_filter{
+    display: none;
+  }
+</style>
    <!-- Page Content -->
 <div class="container">
     <!-- Heading Row -->
